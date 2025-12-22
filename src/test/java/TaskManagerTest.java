@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
 public class TaskManagerTest {
@@ -95,6 +96,20 @@ public class TaskManagerTest {
         assertTrue(taskManager.getTask(0).startsWith("[✓] "));
         assertTrue(taskManager.getTask(2).startsWith("[✓] "));
         assertFalse(taskManager.getTask(1).startsWith("[✓] "));
+
+        // Проверяем поиск
+        List<String> searchResults = taskManager.searchTasks("купить");
+        assertEquals(2, searchResults.size());
+        assertTrue(searchResults.get(0).toLowerCase().contains("купить"));
+        assertTrue(searchResults.get(1).toLowerCase().contains("купить"));
+
+        // Проверяем поиск по несуществующему слову
+        searchResults = taskManager.searchTasks("несуществующее");
+        assertTrue(searchResults.isEmpty());
+
+        // Проверяем поиск с пустым запросом
+        searchResults = taskManager.searchTasks("");
+        assertTrue(searchResults.isEmpty());
 
         // Проверяем отметку несуществующей задачи
         assertFalse(taskManager.markAsCompleted(10));

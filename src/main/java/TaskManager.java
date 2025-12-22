@@ -5,8 +5,8 @@ import java.util.List;
  * Простой менеджер задач (To-Do List)
  */
 public class TaskManager {
-    private List<String> tasks;
-    private int maxTasks;
+    private final List<String> tasks;
+    private final int maxTasks;
 
     public TaskManager(int maxTasks) {
         if (maxTasks <= 0) {
